@@ -9,3 +9,5 @@ location: "Tokyo, Japan"
 ---
 
 Presented by Len Sprague.
+
+<!-- touch: trigger talk map regeneration workflow -->
