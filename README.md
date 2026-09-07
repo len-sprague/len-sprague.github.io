@@ -54,7 +54,7 @@ Switching `site_layout` alone does not change which layout an individual page us
 
 `color_mode` sets the *default* a fresh visitor sees: `auto` follows their OS preference (`prefers-color-scheme`), `light`/`dark` forces one regardless of their system setting. The masthead's sun/moon button lets a visitor override that default for their own session - clicking it flips `html[data-mode]` between light/dark and remembers the choice in `localStorage` (key `color_mode`) across future visits, independent of whatever `color_mode` is set to in `_config.yml`.
 
-That button is the same one the stock theme shipped with, just repointed. The stock click handler (`assets/js/_main.js`) drives a *different* attribute, `html[data-theme]`, which the redesign's color schemes deliberately don't read (see `_sass/_redesign.scss` section 3 for why: `data-theme` was already spoken for). `assets/js/redesign.js` intercepts clicks on the button before that stock handler can act on them, so only the redesign's `data-mode` logic actually runs.
+That button is the same one the stock theme shipped with, just repointed. The stock click handler (`assets/js/_main.js`) drives a *different* attribute, `html[data-theme]`, which the redesign's color schemes deliberately don't read (see `_sass/_redesign.scss` section 3 for why: `data-theme` was already spoken for) - so that part is harmless noise. What isn't harmless is that the same stock code also still swaps the sun/moon icon's class on page load and on OS-preference changes, with no awareness of a color-mode choice made through the new toggle. `assets/js/redesign.js` handles this in two different ways: clicks on the button are blocked outright (capture-phase + `stopImmediatePropagation()`, so the stock click handler never runs at all), while the icon itself is made self-healing with a `MutationObserver` that watches its class and corrects it back any time something external changes it - which turned out to be the only reliable fix, since in testing the stock code's own initialization ran at an unpredictable point relative to any single page-lifecycle event. One narrow, currently-inactive gap: the stock code also redraws any embedded Plotly chart on toggle, and blocking its click handler means that no longer happens - not a problem today since no page embeds one, but worth revisiting if that changes.
 
 ### The home page hero (front matter fields)
 
@@ -81,7 +81,7 @@ Four Google Fonts load together (Newsreader, Archivo, IBM Plex Sans, IBM Plex Mo
 
 ### Rolling back
 
-- **Fully:** delete the `"redesign"` line from the `@import` list at the bottom of `assets/css/main.scss`. Every file the redesign added becomes inert; nothing else needs to change.
+- **Fully:** delete the `"redesign"` line from the `@import` list at the bottom of `assets/css/main.scss`, *and* remove the `<script src="{{ base_path }}/assets/js/redesign.js">` line from `_includes/scripts.html`. Both are needed - the script is what's currently repointing the masthead toggle, so leaving it in place after removing the CSS would leave that button doing nothing at all rather than restoring its original behavior.
 - **Partially, keeping the colors:** set `site_layout: classic` in `_config.yml` to drop the hero/rail/moderate-rail structure while keeping your chosen color scheme and fonts.
 
 ### Publications/portfolio styling (`upgraded_content`)
