@@ -7,15 +7,34 @@ author_profile: true
 
 {% include base_path %}
 
-{% if site.upgraded_content %}
-<div class="portfolio-grid">
+<!-- Grouped by portfolio_category if defined, same pattern as publications.html -->
+{% if site.portfolio_category %}
+  {% for category in site.portfolio_category %}
+    {% assign title_shown = false %}
+    {% for post in site.portfolio %}
+      {% if post.category != category[0] %}
+        {% continue %}
+      {% endif %}
+      {% unless title_shown %}
+        <h2>{{ category[1].title }}</h2><hr />
+        {% assign title_shown = true %}
+        {% if site.upgraded_content %}<div class="portfolio-grid">{% endif %}
+      {% endunless %}
+      {% include archive-single.html %}
+    {% endfor %}
+    {% if title_shown and site.upgraded_content %}</div>{% endif %}
+  {% endfor %}
+{% else %}
+  {% if site.upgraded_content %}
+  <div class="portfolio-grid">
+    {% for post in site.portfolio %}
+      {% include archive-single.html %}
+    {% endfor %}
+  </div>
+  {% else %}
   {% for post in site.portfolio %}
     {% include archive-single.html %}
   {% endfor %}
-</div>
-{% else %}
-{% for post in site.portfolio %}
-  {% include archive-single.html %}
-{% endfor %}
+  {% endif %}
 {% endif %}
 

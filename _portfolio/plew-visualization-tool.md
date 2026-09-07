@@ -2,6 +2,7 @@
 title: "PLeW: Interactive Data Landscape Visualization Tool"
 excerpt: "Co-created interactive visualization tool for exploring human evaluation data and complex data landscapes."
 collection: portfolio
+category: dataviz
 link: "https://len-sprague.github.io/PLeW/"
 ---
 

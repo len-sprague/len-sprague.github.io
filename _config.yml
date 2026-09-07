@@ -109,6 +109,18 @@ publication_category:
   other:
     title: 'Reports & Other Writing'
 
+# Portfolio Category - The following is the list of portfolio categories and their headings.
+# Only categories with at least one matching _portfolio/*.md entry get a heading shown.
+portfolio_category:
+  ai_education:
+    title: 'AI and Education'
+  dataviz:
+    title: 'Data Visualization Tools'
+  essays:
+    title: 'Essays'
+  hobby:
+    title: 'Hobby'
+
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/ for social media previews
 breadcrumbs              : false # true, false (default)

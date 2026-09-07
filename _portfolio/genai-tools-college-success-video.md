@@ -2,6 +2,8 @@
 title: "GenAI Tools & College Success"
 excerpt: "Co-created video (2025, 4,000+ views) used as a discussion baseline for GenAI policy conversations between teachers and students in university research and writing courses."
 collection: portfolio
+category: ai_education
+item_type: "Video"
 link: "https://www.youtube.com/watch?v=x-6pA-eacYc"
 ---
 
