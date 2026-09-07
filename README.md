@@ -48,7 +48,7 @@ Four options, each with its own light and dark palette: `slate` (cool gray-blue)
 - **`moderate`** - adds a sticky sidebar that collapses to a narrow rail after a short scroll (see `assets/js/redesign.js`); Newsreader/Archivo fonts.
 - **`extreme`** (active) - a full hero-style home page (see `_layouts/hero.html`) and a compact 56px "glyph rail" sidebar on other pages (see `_includes/author-rail.html`) instead of the usual bio box, plus a condensed bio card at the end of article content (`_includes/bio-card.html`).
 
-Switching `site_layout` alone does not change which layout an individual page uses - the home page (`_pages/about.md`) explicitly sets `layout: hero` in its own front matter, independent of this setting. If you move away from `extreme`, either leave `about.md` on `layout: hero` (the hero page still renders, just without the rail/bio-card elsewhere) or change it back to `layout: single` with `author_profile: true` to fully match `classic`/`moderate`.
+The home page (`_pages/about.md`) always uses `layout: hero`, but `_layouts/hero.html` itself checks `site_layout` and only renders the actual hero treatment (portrait, kicker, statement, actions) when it's `extreme`. Under `classic`/`moderate` it falls back to a normal single-column page with the standard sidebar instead - so switching `site_layout` changes the home page too, with no need to touch `about.md`'s `layout:` field. The hero-specific front-matter fields (`kicker`, `statement`, `hero_image`, `hero_actions`) simply go unused in that fallback rather than causing an error, so you can leave them in place for whenever you switch back.
 
 ### Light/dark (`color_mode`) and the masthead toggle
 
