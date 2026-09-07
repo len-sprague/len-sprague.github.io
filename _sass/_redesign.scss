@@ -28,12 +28,17 @@
 
 
 /* ==========================================================================
-   1. Retire the legacy dark/light toggle while a redesign scheme is active
+   1. Dark/light toggle
    ========================================================================== */
 
-html[data-scheme] #theme-toggle {
-  display: none;
-}
+// The masthead's existing sun/moon button is reused as-is (see
+// _includes/masthead.html) - only its *behavior* changes. The legacy click
+// handler in assets/js/_main.js drives html[data-theme], which the redesign
+// doesn't read; assets/js/redesign.js intercepts clicks on this button in
+// the capture phase (so it always wins regardless of script load order) and
+// drives html[data-mode] instead, which is what the color-scheme rules
+// above actually key off. No CSS changes needed here beyond what's already
+// inherited from the masthead styles.
 
 
 /* ==========================================================================

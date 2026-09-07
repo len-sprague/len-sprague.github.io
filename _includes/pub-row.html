@@ -1,0 +1,50 @@
+{% include base_path %}
+{% assign post = include.post %}
+
+<!-- Compact row style for the publications list, used when
+     site.upgraded_content is true (see _pages/publications.html). The
+     citation/download-link logic below is copied from archive-single.html
+     rather than shared with it, so this stays self-contained and switching
+     upgraded_content off can never be affected by a change made here. -->
+<div class="pub-row">
+  <span class="pub-row__year">{{ post.date | default: "1900-01-01" | date: '%Y' }}</span>
+  <div>
+    <div class="pub-row__title">
+      <a href="{{ base_path }}{{ post.url }}">{{ post.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
+      {% if post.category %}<span class="publication-tag">{{ site.publication_category[post.category].title | default: post.category }}</span>{% endif %}
+    </div>
+    {% if post.venue %}<div class="pub-row__venue">{{ post.venue }}</div>{% endif %}
+
+    {% if post.excerpt and site.read_more != 'enabled' %}
+      <p class="archive__item-excerpt">{{ post.excerpt | markdownify }}</p>
+    {% endif %}
+
+    {% if post.citation and post.paperurl and post.slidesurl and post.bibtexurl %}
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
+    {% elsif post.citation and post.paperurl and post.slidesurl %}
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">Download Slides</a></p>
+    {% elsif post.citation and post.paperurl and post.bibtexurl %}
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
+    {% elsif post.citation and post.paperurl %}
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a></p>
+    {% elsif post.citation and post.slidesurl and post.bibtexurl %}
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl}}">Download Bibtex</a></p>
+    {% elsif post.citation and post.slidesurl %}
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">Download Slides</a></p>
+    {% elsif post.citation and post.bibtexurl %}
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
+    {% elsif post.citation %}
+      <p>Recommended citation: {{ post.citation }}</p>
+    {% elsif post.paperurl and post.bibtexurl %}
+      <p><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
+    {% elsif post.paperurl %}
+      <p><a href="{{ post.paperurl }}">Download Paper</a></p>
+    {% elsif post.slidesurl and post.bibtexurl %}
+      <p><a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
+    {% elsif post.slidesurl %}
+      <p><a href="{{ post.slidesurl }}">Download Slides</a></p>
+    {% elsif post.bibtexurl %}
+      <p><a href="{{ post.bibtexurl }}">Download Bibtex</a></p>
+    {% endif %}
+  </div>
+</div>
