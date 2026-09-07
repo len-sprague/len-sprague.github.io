@@ -524,7 +524,11 @@ body.redesign-moderate {
   }
 }
 
-.publication-tag {
+// .item-tag is the same small status/type pill as .publication-tag, just
+// under a more general name for use outside publications (e.g. archive-
+// single.html's post.item_type, currently only set on portfolio entries).
+.publication-tag,
+.item-tag {
   display: inline-block;
   margin-right: 8px;
   padding: 2px 8px;

@@ -92,7 +92,11 @@ The small colored tag to the left of a publication's title is its `status:` fron
 
 The two aren't quite the same include under the hood: `_includes/pub-row.html` duplicates (rather than shares) the citation/paper-link logic from `archive-single.html`, on purpose - so a future change to one can never silently affect the other, and turning `upgraded_content` off always gets you back the exact stock behavior. The portfolio side is simpler: `_pages/portfolio.html` just wraps the *same* `archive-single.html` loop in a `.portfolio-grid` container when the flag is on, so there's only one portfolio-rendering codepath to maintain.
 
-## Running locally
+### Portfolio categories and item-type tags
+
+The portfolio page groups entries the same way publications do, via `portfolio_category` in `_config.yml` - currently `AI and Education`, `Data Visualization Tools`, `Essays`, and `Hobby`. Set `category:` in a `_portfolio/*.md` file's front matter to one of those keys (`ai_education`, `dataviz`, `essays`, `hobby`) to place it; a category with no matching entries simply doesn't get a heading, so it's fine to leave `Essays`/`Hobby` empty until there's something to put there.
+
+Unlike publications' `status:` tag, portfolio items can carry an `item_type:` field (e.g. `"Video"`, `"Worksheet"`) - rendered via `_includes/archive-single.html` as the same small pill style (`.item-tag`, sharing CSS with `.publication-tag`), shown to the left of the title. It's opt-in per item; most portfolio entries won't need one.
 
 When you are initially working on your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:
 

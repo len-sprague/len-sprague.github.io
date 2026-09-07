@@ -2,6 +2,7 @@
 title: "State Flow Mapper: Visualizing Categorical Change Over Time"
 excerpt: "Interactive tool for visualizing how a categorical field changes over time, comparing change logs from multiple raters or annotators side by side."
 collection: portfolio
+category: dataviz
 link: "https://len-sprague.github.io/stateflowviz/"
 ---
 
