@@ -419,11 +419,17 @@ html[data-scheme="oxblood"][data-mode="dark"]  { @include scheme-oxblood-dark; }
   border-radius: $border-radius;
   background-color: var(--global-footer-bg-color);
 
-  &__avatar img {
+  &__avatar {
+    flex-shrink: 0; // otherwise this shrinks to a sliver next to __text's flex growth
     width: 64px;
     height: 64px;
-    object-fit: cover;
-    border-radius: 50%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
   }
 
   &__name {
