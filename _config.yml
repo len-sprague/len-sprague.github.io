@@ -14,7 +14,7 @@ site_theme_legacy        : "default" # "default", "air", "sunrise", "mint", "dir
 
 # redesign (see _sass/_redesign.scss) - selectable, layered on top of the legacy skins above
 site_theme               : "oxblood" # slate | meridian | cedar | oxblood
-site_layout              : "extreme" # classic | moderate | extreme
+site_layout              : "moderate" # classic | moderate | extreme
 color_mode               : "auto"    # auto | light | dark
 
 # true  = publications/portfolio use the redesign's compact card/row styling (_includes/pub-row.html, .portfolio-grid)
