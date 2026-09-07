@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+{% include base_path %}
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+
+  <div class="hero">
+    <div class="hero-inner">
+      {% if page.hero_image %}
+        <img class="hero-portrait" src="{% if page.hero_image contains '://' %}{{ page.hero_image }}{% else %}{{ base_path }}/images/{{ page.hero_image }}{% endif %}" alt="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">
+      {% endif %}
+
+      <div class="hero-text">
+        {% if page.kicker %}<div class="hero-kicker">{{ page.kicker }}</div>{% endif %}
+        <h1 class="hero-title">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
+        {% if page.statement %}<p class="hero-statement">{{ page.statement }}</p>{% endif %}
+
+        {% if page.hero_actions %}
+          <div class="hero-actions">
+            {% for action in page.hero_actions %}
+              <a class="hero-action" href="{{ action.url }}">{{ action.label }}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-body" itemprop="text">
+    {{ content }}
+  </div>
+</div>
