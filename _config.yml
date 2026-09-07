@@ -26,9 +26,9 @@ author:
   avatar           : "profile.png"
   name             : "Leonard W. Sprague Jr."
   pronouns         : # example: "she/her"
-  bio              : "Learning thrives on engagement. Engagement manifests from recognizing value. Value evolves and is understood through dialogue between teachers and students. In the face of an upswelling AI presence that threatens to bypass genuine engagement, we must reimagine how we connect by crafting dialogues that acknowledge both the possibilities and pitfalls of AI within our learning environments. Len is a chemist-turned-consultant working at the intersection of AI and higher education. He currently teaches academic writing and AI-literacy courses at the University of Tokyo and Keio University, drawing on a background in computational chemistry and a belief that learning thrives on genuine dialogue between teachers and students."
+  bio              : "Learning thrives on engagement. Engagement manifests from value recognition. Value is found and evolves through dialogue. In the face of an upswelling AI presence that threatens to bypass genuine engagement, we must reimagine how we connect by crafting dialogues that acknowledge both the possibilities and pitfalls of AI within our learning environments. Len is a chemist-turned-consultant working at the intersection of AI and higher education."
   location         : "Somewhere on Earth, usually"
-  employer         : "University of Tokyo (Project Assistant Professor, 特任講師); Keio University (Lecturer)"
+  employer         : "University of Tokyo; Keio University"
   uri              : # URL
   email            : "lenwsprague [at] gmail [dot] com"
 
