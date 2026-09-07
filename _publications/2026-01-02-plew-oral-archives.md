@@ -2,6 +2,7 @@
 title: "Collaborative Exploration of Complex Data Landscapes with PleW"
 collection: publications
 category: manuscripts
+status: "Accepted"
 permalink: /publication/2026-01-02-plew-oral-archives
 excerpt: 'Accepted article on collaborative tools for exploring complex data landscapes, related to the PleW project.'
 date: 2026-01-02
