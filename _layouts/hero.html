@@ -4,6 +4,8 @@ layout: default
 
 {% include base_path %}
 
+{% if site.site_layout == 'extreme' %}
+
 <div id="main" role="main">
   {% include sidebar.html %}
 
@@ -33,3 +35,34 @@ layout: default
     {{ content }}
   </div>
 </div>
+
+{% else %}
+
+<!-- classic/moderate: the hero header (and the glyph rail it pairs with on
+     other pages) is an "extreme"-only concept, so this page falls back to
+     a normal single-column layout with the standard author-profile
+     sidebar - the same sidebar every other page gets under these two
+     iterations, including "moderate"'s collapse-on-scroll behavior, since
+     that's pure CSS/JS keyed off body.redesign-moderate and doesn't care
+     which include put the .sidebar element on the page. Front-matter
+     fields specific to the hero (kicker, statement, hero_image,
+     hero_actions) are simply unused here rather than causing an error. -->
+<div id="main" role="main">
+  <div class="sidebar sticky">
+    {% include author-profile.html %}
+  </div>
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <div class="page__inner-wrap">
+      <header>
+        {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
+      </header>
+
+      <section class="page__content" itemprop="text">
+        {{ content }}
+      </section>
+    </div>
+  </article>
+</div>
+
+{% endif %}
