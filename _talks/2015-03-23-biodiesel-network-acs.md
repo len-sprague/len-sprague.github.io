@@ -5,8 +5,7 @@ type: "Poster Presentation"
 permalink: /talks/2015-03-23-biodiesel-network-acs
 venue: "American Chemical Society Conference"
 date: 2015-03-23
+location: "Denver, CO, USA"
 ---
 
 Solo poster presentation.
-
-*Note: city not given in the source CV — add `location:` once confirmed.*

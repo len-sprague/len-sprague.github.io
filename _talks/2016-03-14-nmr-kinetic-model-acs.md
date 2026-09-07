@@ -5,6 +5,5 @@ type: "Poster Presentation"
 permalink: /talks/2016-03-14-nmr-kinetic-model-acs
 venue: "American Chemical Society Conference"
 date: 2016-03-14
+location: "San Diego, CA, USA"
 ---
-
-*Note: city not given in the source CV — add `location:` once confirmed.*
