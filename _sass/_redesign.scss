@@ -456,6 +456,12 @@ html[data-scheme="oxblood"][data-mode="dark"]  { @include scheme-oxblood-dark; }
    7. "Moderate" layout - sticky collapsing rail (see assets/js/redesign.js)
    ========================================================================== */
 
+// Shown only when the sidebar below is collapsed - see author-profile.html,
+// which renders both this and the full name unconditionally.
+.author__name-short {
+  display: none;
+}
+
 body.redesign-moderate {
   // Guarded behind the same breakpoint _sass/layout/_sidebar.scss uses to
   // switch the sidebar from fixed-column to full-width-stacked-on-top -
@@ -469,6 +475,18 @@ body.redesign-moderate {
 
     &.is-scrolled .sidebar {
       width: 72px;
+
+      // A 72px column can't fit the full name or the bio paragraph - swap
+      // to a short name and drop the rest rather than let them wrap/clip.
+      .author__name-full,
+      .author__pronouns,
+      .author__bio {
+        display: none;
+      }
+
+      .author__name-short {
+        display: inline;
+      }
     }
 
     .archive {
