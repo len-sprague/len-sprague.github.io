@@ -220,23 +220,34 @@ body.redesign-extreme {
 }
 
 // ---- wire each scheme to [data-scheme] + [data-mode] ----------------------
-[data-scheme="slate"]                      { @include scheme-slate-light; }
-[data-scheme="slate"][data-mode="dark"]    { @include scheme-slate-dark; }
+//
+// Selectors are prefixed with the "html" type selector (not just the bare
+// attribute) so their specificity (0,0,1,1) ties the legacy dark-toggle
+// rule html[data-theme="dark"] (also 0,0,1,1) instead of losing to it. That
+// tie matters because assets/js/_main.js's setTheme() runs unconditionally
+// on every page load and still sets data-theme="dark" from a stale
+// localStorage value even though the toggle button itself is hidden (see
+// section 1) - without this prefix, a returning visitor who used the old
+// toggle before this redesign shipped would see the legacy dark palette
+// instead of their selected scheme. On a tie, source order decides, and
+// this file is imported last in main.scss, so these rules win.
+html[data-scheme="slate"]                      { @include scheme-slate-light; }
+html[data-scheme="slate"][data-mode="dark"]    { @include scheme-slate-dark; }
 
-[data-scheme="meridian"]                   { @include scheme-meridian-light; }
-[data-scheme="meridian"][data-mode="dark"] { @include scheme-meridian-dark; }
+html[data-scheme="meridian"]                   { @include scheme-meridian-light; }
+html[data-scheme="meridian"][data-mode="dark"] { @include scheme-meridian-dark; }
 
-[data-scheme="cedar"]                      { @include scheme-cedar-light; }
-[data-scheme="cedar"][data-mode="dark"]    { @include scheme-cedar-dark; }
+html[data-scheme="cedar"]                      { @include scheme-cedar-light; }
+html[data-scheme="cedar"][data-mode="dark"]    { @include scheme-cedar-dark; }
 
-[data-scheme="oxblood"]                    { @include scheme-oxblood-light; }
-[data-scheme="oxblood"][data-mode="dark"]  { @include scheme-oxblood-dark; }
+html[data-scheme="oxblood"]                    { @include scheme-oxblood-light; }
+html[data-scheme="oxblood"][data-mode="dark"]  { @include scheme-oxblood-dark; }
 
 @media (prefers-color-scheme: dark) {
-  [data-scheme="slate"][data-mode="auto"]    { @include scheme-slate-dark; }
-  [data-scheme="meridian"][data-mode="auto"] { @include scheme-meridian-dark; }
-  [data-scheme="cedar"][data-mode="auto"]    { @include scheme-cedar-dark; }
-  [data-scheme="oxblood"][data-mode="auto"]  { @include scheme-oxblood-dark; }
+  html[data-scheme="slate"][data-mode="auto"]    { @include scheme-slate-dark; }
+  html[data-scheme="meridian"][data-mode="auto"] { @include scheme-meridian-dark; }
+  html[data-scheme="cedar"][data-mode="auto"]    { @include scheme-cedar-dark; }
+  html[data-scheme="oxblood"][data-mode="auto"]  { @include scheme-oxblood-dark; }
 }
 
 
@@ -431,17 +442,23 @@ body.redesign-extreme {
    ========================================================================== */
 
 body.redesign-moderate {
-  .sidebar {
-    width: 212px;
-    transition: width 0.2s ease-in-out;
-  }
+  // Guarded behind the same breakpoint _sass/layout/_sidebar.scss uses to
+  // switch the sidebar from fixed-column to full-width-stacked-on-top -
+  // without this, these widths would apply on mobile too and squeeze the
+  // stacked mobile layout into a narrow fixed column.
+  @include breakpoint($large) {
+    .sidebar {
+      width: 212px;
+      transition: width 0.2s ease-in-out;
+    }
 
-  &.is-scrolled .sidebar {
-    width: 72px;
-  }
+    &.is-scrolled .sidebar {
+      width: 72px;
+    }
 
-  .archive {
-    width: calc(100% - 252px); // rail + 40px gutter
+    .archive {
+      width: calc(100% - 252px); // rail + 40px gutter
+    }
   }
 }
 

@@ -20,6 +20,75 @@ See more info at https://academicpages.github.io/
 Additional tutorials for working with the Academic Pages template can be found at the following sites:
 - https://jayrobwilliams.com/posts/2020/06/academic-website/
 
+## Theming: colors, layout, and fonts
+
+This fork layers a second, **selectable** design system on top of the stock Academic Pages/Minimal Mistakes theme, without modifying or removing the original. Everything about it is controlled from a handful of keys near the top of `_config.yml`:
+
+```yaml
+site_theme_legacy : "default"   # the ORIGINAL 6 skins - untouched, see below
+site_theme        : "oxblood"   # slate | meridian | cedar | oxblood
+site_layout       : "extreme"   # classic | moderate | extreme
+color_mode        : "auto"      # auto | light | dark
+```
+
+### The original theme system still exists
+
+`site_theme_legacy` is the stock Academic Pages skin picker (`"default"`, `"air"`, `"sunrise"`, `"mint"`, `"dirt"`, `"contrast"` - see `_sass/theme/`). It was renamed from the stock key `site_theme` only so that name could be reused for the new scheme picker below; it still feeds the exact same files as before and nothing about it changed.
+
+### Color schemes (`site_theme`)
+
+Four options, each with its own light and dark palette: `slate` (cool gray-blue), `meridian` (navy/cream, editorial), `cedar` (deep green), `oxblood` (deep red - currently active). Each scheme redefines the same CSS custom properties (`--global-base-color`, `--global-link-color`, `--global-text-color`, etc.) that the rest of the compiled stylesheet already reads, so picking one re-skins the whole site - masthead, sidebar, footer, buttons, links, code blocks - with nothing else to touch.
+
+**To add a fifth scheme:** open `_sass/_redesign.scss`, copy one of the existing `@mixin scheme-<name>-light` / `@mixin scheme-<name>-dark` pairs, adjust the hex values, then wire it up in the "wire each scheme" section the same way the other four are (a base `html[data-scheme="<name>"]` rule, an explicit `[data-mode="dark"]` rule, and an entry in the `@media (prefers-color-scheme: dark)` block for `[data-mode="auto"]`).
+
+### Layout iterations (`site_layout`)
+
+- **`classic`** - stock single-column structure, just retinted and refonted (IBM Plex Sans throughout).
+- **`moderate`** - adds a sticky sidebar that collapses to a narrow rail after a short scroll (see `assets/js/redesign.js`); Newsreader/Archivo fonts.
+- **`extreme`** (active) - a full hero-style home page (see `_layouts/hero.html`) and a compact 56px "glyph rail" sidebar on other pages (see `_includes/author-rail.html`) instead of the usual bio box, plus a condensed bio card at the end of article content (`_includes/bio-card.html`).
+
+Switching `site_layout` alone does not change which layout an individual page uses - the home page (`_pages/about.md`) explicitly sets `layout: hero` in its own front matter, independent of this setting. If you move away from `extreme`, either leave `about.md` on `layout: hero` (the hero page still renders, just without the rail/bio-card elsewhere) or change it back to `layout: single` with `author_profile: true` to fully match `classic`/`moderate`.
+
+### Light/dark (`color_mode`)
+
+`auto` follows the visitor's OS preference (`prefers-color-scheme`); `light` or `dark` forces one regardless of their system setting. There is no in-page toggle for this yet (the stock sun/moon button in the masthead is intentionally hidden whenever a redesign scheme is active - see below - since it would otherwise fight over the same effect). Adding a real toggle for `color_mode` would mean a small bit of new JS to flip `data-mode` on `<html>` and persist the choice; ask if you want that built.
+
+### The home page hero (front matter fields)
+
+Any page can opt into the hero layout with `layout: hero` plus these fields (see `_pages/about.md` for the live example):
+
+```yaml
+layout: hero
+author_profile: false     # hero replaces the sidebar entirely
+kicker: "A short eyebrow line above the title"
+statement: "A sentence or two under the title."
+hero_image: "profile.png"  # relative to /images/, or a full URL
+hero_actions:
+  - label: "Curriculum vitae"
+    url: "/cv/"
+  - label: "Google Scholar"
+    url: "https://scholar.google.com/citations?user=..."
+```
+
+On `extreme` subpages, the end-of-content bio card can be suppressed per page with `bio_card: false` in that page's front matter.
+
+### Why the dark/light toggle button disappears
+
+The stock theme's masthead sun/moon button (`assets/js/_main.js`) reads and writes an `html[data-theme]` attribute for its own light/dark switching. The redesign uses a *different* attribute, `data-scheme`, for color-scheme selection, specifically to avoid a collision with that button - but the button is still hidden while a redesign scheme is active (`html[data-scheme] #theme-toggle { display: none; }` in `_sass/_redesign.scss`) so it doesn't sit there doing nothing.
+
+### Fonts
+
+Four Google Fonts load together (Newsreader, Archivo, IBM Plex Sans, IBM Plex Mono - see `_includes/head/custom.html`, loaded asynchronously so they don't block first paint) regardless of which layout iteration is active, so switching `site_layout` needs no other change. Which ones actually get used is decided in `_sass/_redesign.scss` section 2.
+
+### Rolling back
+
+- **Fully:** delete the `"redesign"` line from the `@import` list at the bottom of `assets/css/main.scss`. Every file the redesign added becomes inert; nothing else needs to change.
+- **Partially, keeping the colors:** set `site_layout: classic` in `_config.yml` to drop the hero/rail/moderate-rail structure while keeping your chosen color scheme and fonts.
+
+### Optional, not-yet-wired content classes
+
+`_sass/_redesign.scss` also styles `.pub-row`/`.publication-tag` (a compact year-gutter row style for publication listings) and `.portfolio-grid` (a card grid for the portfolio page), but neither is currently used in `_pages/publications.html` or `_pages/portfolio.html` - wiring them in would mean giving up the richer citation/download-link rendering those pages currently get from the shared `archive-single.html` include, which felt like a decision worth leaving to whoever's editing those pages rather than making silently.
+
 ## Running locally
 
 When you are initially working on your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:
