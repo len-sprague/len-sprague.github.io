@@ -1,5 +1,10 @@
 var addressPoints = [
   [
+    "Applying 1H NMR Spectroscopy to Develop a Kinetic Model for the Transesterification of Glycerol Fatty Acid Triesters<br />American Chemical Society Conference; San Diego, CA, USA",
+    32.7174202,
+    -117.162772
+  ],
+  [
     "Brazil & Bolsonaro: Understanding the Jan. 8th Insurrection<br />Hibiya High School (\u65e5\u6bd4\u8c37\u9ad8\u7b49\u5b66\u6821); Tokyo, Japan",
     35.6768601,
     139.7638947
@@ -18,6 +23,11 @@ var addressPoints = [
     "Trust the Students: Elevating Student Agency and Confidence With Discourse around LLMs (such as ChatGPT)<br />University of Tokyo, ALESS/A/FLOW Post-Semester Workshop; Tokyo, Japan",
     35.6768601,
     139.7638947
+  ],
+  [
+    "Southeastern Massachusetts Student Network for Biodiesel Research and Education<br />EPA P3 Expo; Alexandria, VA, USA",
+    38.8051095,
+    -77.0470229
   ],
   [
     "Thermoelectric (Uniaxial) Strain Engineering: Indium Selenide<br />American Chemical Society Conference; Orlando, FL, USA",
@@ -98,5 +108,15 @@ var addressPoints = [
     "AI in Higher Education \u2013 Fireside Chat<br />Organized by the MIT Club of Japan; Tokyo, Japan",
     35.6768601,
     139.7638947
+  ],
+  [
+    "Pedagogy & AI: How AI Usage and Capability Inform Classroom Policy and Practice<br />Keio University (\u6176\u61c9\u7fa9\u587e\u5927\u5b66); Tokyo, Japan",
+    35.6768601,
+    139.7638947
+  ],
+  [
+    "Southeastern Massachusetts Student Network for Biodiesel Research and Education<br />American Chemical Society Conference; Denver, CO, USA",
+    39.7392364,
+    -104.984862
   ]
 ];
