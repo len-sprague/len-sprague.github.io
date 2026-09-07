@@ -86,7 +86,9 @@ Four Google Fonts load together (Newsreader, Archivo, IBM Plex Sans, IBM Plex Mo
 
 ### Publications/portfolio styling (`upgraded_content`)
 
-`true` (active) renders the publications and portfolio pages with the redesign's own compact styling: a year-gutter row with a category tag for each publication (`_includes/pub-row.html`, using the `.pub-row`/`.publication-tag` classes from `_sass/_redesign.scss`), and a card grid for the portfolio (`.portfolio-grid`). `false` reverts both pages to the stock `archive-single.html` rendering academicpages ships with.
+`true` (active) renders the publications and portfolio pages with the redesign's own compact styling: a year-gutter row for each publication (`_includes/pub-row.html`, using the `.pub-row`/`.publication-tag` classes from `_sass/_redesign.scss`), and a card grid for the portfolio (`.portfolio-grid`). `false` reverts both pages to the stock `archive-single.html` rendering academicpages ships with.
+
+The small colored tag to the left of a publication's title is its `status:` front-matter field, not its category (the page is already grouped into category sections via `publication_category` in `_config.yml`, so repeating that per-row would be redundant). Only set `status` on entries that need a status called out - `"Preprint"`, `"In Review"`, `"Accepted"`, or similar - and leave it unset on everything else so no tag shows.
 
 The two aren't quite the same include under the hood: `_includes/pub-row.html` duplicates (rather than shares) the citation/paper-link logic from `archive-single.html`, on purpose - so a future change to one can never silently affect the other, and turning `upgraded_content` off always gets you back the exact stock behavior. The portfolio side is simpler: `_pages/portfolio.html` just wraps the *same* `archive-single.html` loop in a `.portfolio-grid` container when the flag is on, so there's only one portfolio-rendering codepath to maintain.
 

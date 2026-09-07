@@ -10,8 +10,8 @@
   <span class="pub-row__year">{{ post.date | default: "1900-01-01" | date: '%Y' }}</span>
   <div>
     <div class="pub-row__title">
+      {% if post.status %}<span class="publication-tag">{{ post.status }}</span>{% endif %}
       <a href="{{ base_path }}{{ post.url }}">{{ post.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-      {% if post.category %}<span class="publication-tag">{{ site.publication_category[post.category].title | default: post.category }}</span>{% endif %}
     </div>
     {% if post.venue %}<div class="pub-row__venue">{{ post.venue }}</div>{% endif %}
 

@@ -502,6 +502,7 @@ body.redesign-moderate {
 
 .publication-tag {
   display: inline-block;
+  margin-right: 8px;
   padding: 2px 8px;
   border-radius: 3px;
   background-color: var(--global-base-color);
@@ -510,6 +511,7 @@ body.redesign-moderate {
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  vertical-align: middle;
 }
 
 .portfolio-grid {
