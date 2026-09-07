@@ -17,6 +17,10 @@ site_theme               : "oxblood" # slate | meridian | cedar | oxblood
 site_layout              : "extreme" # classic | moderate | extreme
 color_mode               : "auto"    # auto | light | dark
 
+# true  = publications/portfolio use the redesign's compact card/row styling (_includes/pub-row.html, .portfolio-grid)
+# false = both pages render with the original stock academicpages archive-single.html markup
+upgraded_content         : true
+
 title                    : "Len Sprague / Professional Portfolio"
 title_separator          : "-"
 name                     : &name "Leonard W. Sprague Jr."

@@ -17,23 +17,32 @@
    data-scheme is used instead of the stock data-theme attribute on purpose:
    the existing dark/light toggle button (assets/js/_main.js) already reads
    and writes html[data-theme] for its own light/dark switching, so reusing
-   that attribute for scheme selection would fight with it. That toggle is
-   hidden below whenever a redesign scheme is active (see section 1); the
-   redesign's own light/dark handling is color_mode + prefers-color-scheme.
+   that attribute for scheme selection would fight with it. The button
+   itself is still used - assets/js/redesign.js repoints its behavior to
+   drive data-mode instead (see section 1 and that file's own comments for
+   how it keeps the legacy code from fighting back).
 
-   To roll back entirely: remove the "redesign" import from main.scss. To
-   keep the redesign but return the stock single-column structure, set
+   To roll back entirely: remove the "redesign" import from main.scss AND
+   the "<script src=".../redesign.js">" line from _includes/scripts.html
+   (the latter is what's currently repointing the toggle button - without
+   removing it too, the legacy click handler stays blocked). To keep the
+   redesign but return the stock single-column structure, set
    site_layout: classic in _config.yml.
    ========================================================================== */
 
 
 /* ==========================================================================
-   1. Retire the legacy dark/light toggle while a redesign scheme is active
+   1. Dark/light toggle
    ========================================================================== */
 
-html[data-scheme] #theme-toggle {
-  display: none;
-}
+// The masthead's existing sun/moon button is reused as-is (see
+// _includes/masthead.html) - only its *behavior* changes. The legacy click
+// handler in assets/js/_main.js drives html[data-theme], which the redesign
+// doesn't read; assets/js/redesign.js intercepts clicks on this button in
+// the capture phase (so it always wins regardless of script load order) and
+// drives html[data-mode] instead, which is what the color-scheme rules
+// above actually key off. No CSS changes needed here beyond what's already
+// inherited from the masthead styles.
 
 
 /* ==========================================================================

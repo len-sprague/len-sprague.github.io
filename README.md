@@ -28,7 +28,8 @@ This fork layers a second, **selectable** design system on top of the stock Acad
 site_theme_legacy : "default"   # the ORIGINAL 6 skins - untouched, see below
 site_theme        : "oxblood"   # slate | meridian | cedar | oxblood
 site_layout       : "extreme"   # classic | moderate | extreme
-color_mode        : "auto"      # auto | light | dark
+color_mode        : "auto"      # auto | light | dark - the *default*; visitors can override with the masthead toggle
+upgraded_content  : true        # true = redesign's compact publication/portfolio styling, false = stock archive styling
 ```
 
 ### The original theme system still exists
@@ -49,9 +50,11 @@ Four options, each with its own light and dark palette: `slate` (cool gray-blue)
 
 Switching `site_layout` alone does not change which layout an individual page uses - the home page (`_pages/about.md`) explicitly sets `layout: hero` in its own front matter, independent of this setting. If you move away from `extreme`, either leave `about.md` on `layout: hero` (the hero page still renders, just without the rail/bio-card elsewhere) or change it back to `layout: single` with `author_profile: true` to fully match `classic`/`moderate`.
 
-### Light/dark (`color_mode`)
+### Light/dark (`color_mode`) and the masthead toggle
 
-`auto` follows the visitor's OS preference (`prefers-color-scheme`); `light` or `dark` forces one regardless of their system setting. There is no in-page toggle for this yet (the stock sun/moon button in the masthead is intentionally hidden whenever a redesign scheme is active - see below - since it would otherwise fight over the same effect). Adding a real toggle for `color_mode` would mean a small bit of new JS to flip `data-mode` on `<html>` and persist the choice; ask if you want that built.
+`color_mode` sets the *default* a fresh visitor sees: `auto` follows their OS preference (`prefers-color-scheme`), `light`/`dark` forces one regardless of their system setting. The masthead's sun/moon button lets a visitor override that default for their own session - clicking it flips `html[data-mode]` between light/dark and remembers the choice in `localStorage` (key `color_mode`) across future visits, independent of whatever `color_mode` is set to in `_config.yml`.
+
+That button is the same one the stock theme shipped with, just repointed. The stock click handler (`assets/js/_main.js`) drives a *different* attribute, `html[data-theme]`, which the redesign's color schemes deliberately don't read (see `_sass/_redesign.scss` section 3 for why: `data-theme` was already spoken for) - so that part is harmless noise. What isn't harmless is that the same stock code also still swaps the sun/moon icon's class on page load and on OS-preference changes, with no awareness of a color-mode choice made through the new toggle. `assets/js/redesign.js` handles this in two different ways: clicks on the button are blocked outright (capture-phase + `stopImmediatePropagation()`, so the stock click handler never runs at all), while the icon itself is made self-healing with a `MutationObserver` that watches its class and corrects it back any time something external changes it - which turned out to be the only reliable fix, since in testing the stock code's own initialization ran at an unpredictable point relative to any single page-lifecycle event. One narrow, currently-inactive gap: the stock code also redraws any embedded Plotly chart on toggle, and blocking its click handler means that no longer happens - not a problem today since no page embeds one, but worth revisiting if that changes.
 
 ### The home page hero (front matter fields)
 
@@ -72,22 +75,20 @@ hero_actions:
 
 On `extreme` subpages, the end-of-content bio card can be suppressed per page with `bio_card: false` in that page's front matter.
 
-### Why the dark/light toggle button disappears
-
-The stock theme's masthead sun/moon button (`assets/js/_main.js`) reads and writes an `html[data-theme]` attribute for its own light/dark switching. The redesign uses a *different* attribute, `data-scheme`, for color-scheme selection, specifically to avoid a collision with that button - but the button is still hidden while a redesign scheme is active (`html[data-scheme] #theme-toggle { display: none; }` in `_sass/_redesign.scss`) so it doesn't sit there doing nothing.
-
 ### Fonts
 
 Four Google Fonts load together (Newsreader, Archivo, IBM Plex Sans, IBM Plex Mono - see `_includes/head/custom.html`, loaded asynchronously so they don't block first paint) regardless of which layout iteration is active, so switching `site_layout` needs no other change. Which ones actually get used is decided in `_sass/_redesign.scss` section 2.
 
 ### Rolling back
 
-- **Fully:** delete the `"redesign"` line from the `@import` list at the bottom of `assets/css/main.scss`. Every file the redesign added becomes inert; nothing else needs to change.
+- **Fully:** delete the `"redesign"` line from the `@import` list at the bottom of `assets/css/main.scss`, *and* remove the `<script src="{{ base_path }}/assets/js/redesign.js">` line from `_includes/scripts.html`. Both are needed - the script is what's currently repointing the masthead toggle, so leaving it in place after removing the CSS would leave that button doing nothing at all rather than restoring its original behavior.
 - **Partially, keeping the colors:** set `site_layout: classic` in `_config.yml` to drop the hero/rail/moderate-rail structure while keeping your chosen color scheme and fonts.
 
-### Optional, not-yet-wired content classes
+### Publications/portfolio styling (`upgraded_content`)
 
-`_sass/_redesign.scss` also styles `.pub-row`/`.publication-tag` (a compact year-gutter row style for publication listings) and `.portfolio-grid` (a card grid for the portfolio page), but neither is currently used in `_pages/publications.html` or `_pages/portfolio.html` - wiring them in would mean giving up the richer citation/download-link rendering those pages currently get from the shared `archive-single.html` include, which felt like a decision worth leaving to whoever's editing those pages rather than making silently.
+`true` (active) renders the publications and portfolio pages with the redesign's own compact styling: a year-gutter row with a category tag for each publication (`_includes/pub-row.html`, using the `.pub-row`/`.publication-tag` classes from `_sass/_redesign.scss`), and a card grid for the portfolio (`.portfolio-grid`). `false` reverts both pages to the stock `archive-single.html` rendering academicpages ships with.
+
+The two aren't quite the same include under the hood: `_includes/pub-row.html` duplicates (rather than shares) the citation/paper-link logic from `archive-single.html`, on purpose - so a future change to one can never silently affect the other, and turning `upgraded_content` off always gets you back the exact stock behavior. The portfolio side is simpler: `_pages/portfolio.html` just wraps the *same* `archive-single.html` loop in a `.portfolio-grid` container when the flag is on, so there's only one portfolio-rendering codepath to maintain.
 
 ## Running locally
 
