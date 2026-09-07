@@ -1,0 +1,33 @@
+{% include base_path %}
+
+<!-- Glyph rail: the "extreme" layout's compact replacement for author-profile.html.
+     Two-letter marks stand in for Font Awesome icons - delete the `.fa { display: none }`
+     rule in _sass/_redesign.scss and add icon markup here if you would rather keep icons. -->
+<nav class="author-rail" aria-label="{{ site.author.name }}">
+  <a class="author-rail__mark author-rail__mark--avatar" href="{{ base_path }}/" aria-label="Home">
+    {% if site.author.avatar contains "://" %}
+      <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}">
+    {% else %}
+      <img src="{{ site.author.avatar | prepend: '/images/' | prepend: base_path }}" alt="{{ site.author.name }}">
+    {% endif %}
+  </a>
+
+  {% if site.author.cv %}
+    <a class="author-rail__mark" href="{{ site.author.cv }}" title="Curriculum vitae"><span>CV</span></a>
+  {% endif %}
+  {% if site.author.googlescholar %}
+    <a class="author-rail__mark" href="{{ site.author.googlescholar }}" title="Google Scholar"><span>GS</span></a>
+  {% endif %}
+  {% if site.author.github %}
+    <a class="author-rail__mark" href="https://github.com/{{ site.author.github }}" title="GitHub"><span>GH</span></a>
+  {% endif %}
+  {% if site.author.orcid %}
+    <a class="author-rail__mark" href="{{ site.author.orcid }}" title="ORCID"><span>iD</span></a>
+  {% endif %}
+  {% if site.author.linkedin %}
+    <a class="author-rail__mark" href="https://www.linkedin.com/in/{{ site.author.linkedin }}" title="LinkedIn"><span>in</span></a>
+  {% endif %}
+  {% if site.author.email %}
+    <a class="author-rail__mark" href="mailto:{{ site.author.email }}" title="Email"><span>&#64;</span></a>
+  {% endif %}
+</nav>

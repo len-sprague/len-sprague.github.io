@@ -1,0 +1,19 @@
+{% include base_path %}
+
+<!-- End-of-content bio for "extreme" layout subpages, since author-rail.html
+     carries links but not bio prose. Suppress per-page with `bio_card: false`
+     in front matter. -->
+<div class="bio-card">
+  <div class="bio-card__avatar">
+    {% if site.author.avatar contains "://" %}
+      <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}">
+    {% else %}
+      <img src="{{ site.author.avatar | prepend: '/images/' | prepend: base_path }}" alt="{{ site.author.name }}">
+    {% endif %}
+  </div>
+  <div class="bio-card__text">
+    <div class="bio-card__name">{{ site.author.name }}</div>
+    {% if site.author.bio %}<p class="bio-card__bio">{{ site.author.bio }}</p>{% endif %}
+    {% if site.author.cv %}<a class="bio-card__link" href="{{ site.author.cv }}">Curriculum vitae &rarr;</a>{% endif %}
+  </div>
+</div>

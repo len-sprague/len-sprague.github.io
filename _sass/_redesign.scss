@@ -1,0 +1,493 @@
+/* ==========================================================================
+   REDESIGN - selectable color schemes + layout iterations, layered on top of
+   the untouched stock academicpages/minimal-mistakes system.
+
+   Selection lives in _config.yml:
+     site_theme_legacy : "default"  -> feeds _sass/theme/* (the original 6 skins), untouched
+     site_theme        : slate | meridian | cedar | oxblood
+     site_layout       : classic | moderate | extreme
+     color_mode        : auto | light | dark
+
+   Mechanism: <html data-scheme="{site_theme}" data-mode="{color_mode}">,
+   <body class="redesign-{site_layout}"> (set in _layouts/default.html). Each
+   scheme below redefines the same --global-* custom properties the rest of
+   the compiled CSS already consumes, so the whole site re-skins (masthead,
+   sidebar, footer, buttons, links, code blocks) with no other file touched.
+
+   data-scheme is used instead of the stock data-theme attribute on purpose:
+   the existing dark/light toggle button (assets/js/_main.js) already reads
+   and writes html[data-theme] for its own light/dark switching, so reusing
+   that attribute for scheme selection would fight with it. That toggle is
+   hidden below whenever a redesign scheme is active (see section 1); the
+   redesign's own light/dark handling is color_mode + prefers-color-scheme.
+
+   To roll back entirely: remove the "redesign" import from main.scss. To
+   keep the redesign but return the stock single-column structure, set
+   site_layout: classic in _config.yml.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. Retire the legacy dark/light toggle while a redesign scheme is active
+   ========================================================================== */
+
+html[data-scheme] #theme-toggle {
+  display: none;
+}
+
+
+/* ==========================================================================
+   2. Fonts per layout iteration
+   ========================================================================== */
+
+body.redesign-classic,
+body.redesign-moderate,
+body.redesign-extreme {
+  font-family: 'IBM Plex Sans', $sans-serif;
+
+  code, pre, .highlight, .highlight .highlight {
+    font-family: 'IBM Plex Mono', $monospace;
+  }
+}
+
+body.redesign-moderate,
+body.redesign-extreme {
+  font-family: 'Archivo', $sans-serif;
+
+  h1, h2, h3, h4, h5, h6,
+  .archive__item-title,
+  .page__title {
+    font-family: 'Newsreader', $serif;
+    font-weight: 400;
+  }
+}
+
+
+/* ==========================================================================
+   3. Color schemes
+   ========================================================================== */
+
+// ---- slate --------------------------------------------------------------
+@mixin scheme-slate-light {
+  --global-base-color                 : #3b5266;
+  --global-bg-color                   : #ffffff;
+  --global-footer-bg-color            : #eef1f3;
+  --global-border-color               : #d7dde2;
+  --global-dark-border-color          : #b7c0c7;
+  --global-code-background-color      : #f5f7f8;
+  --global-code-text-color            : #35424c;
+  --global-fig-caption-color          : #6b7680;
+  --global-link-color                 : #3b6ea5;
+  --global-link-color-hover           : #2c527c;
+  --global-link-color-visited         : #5c7f9e;
+  --global-masthead-link-color        : #2b333a;
+  --global-masthead-link-color-hover  : #3b5266;
+  --global-text-color                 : #2b333a;
+  --global-text-color-light           : #b7c0c7;
+  --global-thead-color                : #eef1f3;
+}
+@mixin scheme-slate-dark {
+  --global-base-color                 : #6fa8d8;
+  --global-bg-color                   : #1c2126;
+  --global-footer-bg-color            : #1c2126;
+  --global-border-color               : #384049;
+  --global-dark-border-color          : #454e58;
+  --global-code-background-color      : #262b31;
+  --global-code-text-color            : #b7c0c7;
+  --global-fig-caption-color          : #8f99a3;
+  --global-link-color                 : #6fa8d8;
+  --global-link-color-hover           : #93c1e8;
+  --global-link-color-visited         : #8fb3d1;
+  --global-masthead-link-color        : #e7e9ec;
+  --global-masthead-link-color-hover  : #6fa8d8;
+  --global-text-color                 : #e7e9ec;
+  --global-text-color-light           : #aeb6bd;
+  --global-thead-color                : #262b31;
+}
+
+// ---- meridian -------------------------------------------------------------
+@mixin scheme-meridian-light {
+  --global-base-color                 : #23386b;
+  --global-bg-color                   : #fbfaf6;
+  --global-footer-bg-color            : #f1efe7;
+  --global-border-color               : #ddd9cd;
+  --global-dark-border-color          : #c7c2b3;
+  --global-code-background-color      : #f5f3ec;
+  --global-code-text-color            : #3d3a32;
+  --global-fig-caption-color          : #8a8578;
+  --global-link-color                 : #23386b;
+  --global-link-color-hover           : #16264a;
+  --global-link-color-visited         : #4a5c8a;
+  --global-masthead-link-color        : #3d3a32;
+  --global-masthead-link-color-hover  : #23386b;
+  --global-text-color                 : #3d3a32;
+  --global-text-color-light           : #8a8578;
+  --global-thead-color                : #f1efe7;
+}
+@mixin scheme-meridian-dark {
+  --global-base-color                 : #7f9fd6;
+  --global-bg-color                   : #171a24;
+  --global-footer-bg-color            : #171a24;
+  --global-border-color               : #2c3140;
+  --global-dark-border-color          : #3a4054;
+  --global-code-background-color      : #1f2330;
+  --global-code-text-color            : #d8dbe8;
+  --global-fig-caption-color          : #9aa1b8;
+  --global-link-color                 : #7f9fd6;
+  --global-link-color-hover           : #a6bfe6;
+  --global-link-color-visited         : #9aa8cc;
+  --global-masthead-link-color        : #e8e4d8;
+  --global-masthead-link-color-hover  : #7f9fd6;
+  --global-text-color                 : #e8e4d8;
+  --global-text-color-light           : #aba695;
+  --global-thead-color                : #1f2330;
+}
+
+// ---- cedar ----------------------------------------------------------------
+@mixin scheme-cedar-light {
+  --global-base-color                 : #3b5c3a;
+  --global-bg-color                   : #fbfbf7;
+  --global-footer-bg-color            : #f0f2e9;
+  --global-border-color               : #dbe2d3;
+  --global-dark-border-color          : #c2cdb6;
+  --global-code-background-color      : #f2f5ee;
+  --global-code-text-color            : #33362f;
+  --global-fig-caption-color          : #7c8571;
+  --global-link-color                 : #3b5c3a;
+  --global-link-color-hover           : #2a4229;
+  --global-link-color-visited         : #5c7c5a;
+  --global-masthead-link-color        : #2f3329;
+  --global-masthead-link-color-hover  : #3b5c3a;
+  --global-text-color                 : #2f3329;
+  --global-text-color-light           : #8f9884;
+  --global-thead-color                : #f0f2e9;
+}
+@mixin scheme-cedar-dark {
+  --global-base-color                 : #9fc09b;
+  --global-bg-color                   : #161c14;
+  --global-footer-bg-color            : #161c14;
+  --global-border-color               : #2c3628;
+  --global-dark-border-color          : #3a4635;
+  --global-code-background-color      : #1e2519;
+  --global-code-text-color            : #d9e3d4;
+  --global-fig-caption-color          : #9bab93;
+  --global-link-color                 : #9fc09b;
+  --global-link-color-hover           : #bdd8ba;
+  --global-link-color-visited         : #aac6a6;
+  --global-masthead-link-color        : #e8ece4;
+  --global-masthead-link-color-hover  : #9fc09b;
+  --global-text-color                 : #e8ece4;
+  --global-text-color-light           : #a9b5a3;
+  --global-thead-color                : #1e2519;
+}
+
+// ---- oxblood (active) ------------------------------------------------------
+@mixin scheme-oxblood-light {
+  --global-base-color                 : #5c1a1f;
+  --global-bg-color                   : #fbf7f5;
+  --global-footer-bg-color            : #f3ebe9;
+  --global-border-color               : #e3d3d0;
+  --global-dark-border-color          : #cbb2ae;
+  --global-code-background-color      : #f6efed;
+  --global-code-text-color            : #3a2b29;
+  --global-fig-caption-color          : #8a726d;
+  --global-link-color                 : #5c1a1f;
+  --global-link-color-hover           : #430f13;
+  --global-link-color-visited         : #7a3d40;
+  --global-masthead-link-color        : #2b201e;
+  --global-masthead-link-color-hover  : #5c1a1f;
+  --global-text-color                 : #2b201e;
+  --global-text-color-light           : #9c8781;
+  --global-thead-color                : #f3ebe9;
+}
+@mixin scheme-oxblood-dark {
+  --global-base-color                 : #e2a0a8;
+  --global-bg-color                   : #1c1210;
+  --global-footer-bg-color            : #1c1210;
+  --global-border-color               : #3a2826;
+  --global-dark-border-color          : #4a332f;
+  --global-code-background-color      : #241713;
+  --global-code-text-color            : #ecdedb;
+  --global-fig-caption-color          : #b89791;
+  --global-link-color                 : #e2a0a8;
+  --global-link-color-hover           : #edc0c5;
+  --global-link-color-visited         : #cfa0a2;
+  --global-masthead-link-color        : #f0e8e4;
+  --global-masthead-link-color-hover  : #e2a0a8;
+  --global-text-color                 : #f0e8e4;
+  --global-text-color-light           : #c9b8b3;
+  --global-thead-color                : #241713;
+}
+
+// ---- wire each scheme to [data-scheme] + [data-mode] ----------------------
+[data-scheme="slate"]                      { @include scheme-slate-light; }
+[data-scheme="slate"][data-mode="dark"]    { @include scheme-slate-dark; }
+
+[data-scheme="meridian"]                   { @include scheme-meridian-light; }
+[data-scheme="meridian"][data-mode="dark"] { @include scheme-meridian-dark; }
+
+[data-scheme="cedar"]                      { @include scheme-cedar-light; }
+[data-scheme="cedar"][data-mode="dark"]    { @include scheme-cedar-dark; }
+
+[data-scheme="oxblood"]                    { @include scheme-oxblood-light; }
+[data-scheme="oxblood"][data-mode="dark"]  { @include scheme-oxblood-dark; }
+
+@media (prefers-color-scheme: dark) {
+  [data-scheme="slate"][data-mode="auto"]    { @include scheme-slate-dark; }
+  [data-scheme="meridian"][data-mode="auto"] { @include scheme-meridian-dark; }
+  [data-scheme="cedar"][data-mode="auto"]    { @include scheme-cedar-dark; }
+  [data-scheme="oxblood"][data-mode="auto"]  { @include scheme-oxblood-dark; }
+}
+
+
+/* ==========================================================================
+   4. Hero home page ("extreme" layout - see _layouts/hero.html)
+   ========================================================================== */
+
+.hero {
+  padding: 64px 0 48px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--global-border-color);
+}
+
+.hero-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+  max-width: $large;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+.hero-portrait {
+  flex-shrink: 0;
+  width: 168px;
+  height: 168px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: $box-shadow;
+}
+
+.hero-text {
+  flex: 1 1 360px;
+  min-width: 280px;
+}
+
+.hero-kicker {
+  margin-bottom: 10px;
+  color: var(--global-base-color);
+  font-family: 'IBM Plex Mono', $monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 0 0 14px;
+  color: var(--global-text-color);
+  font-family: 'Newsreader', $serif;
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.hero-statement {
+  max-width: 60ch;
+  margin: 0 0 24px;
+  color: var(--global-text-color);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-action {
+  display: inline-block;
+  padding: 0.5em 1.1em;
+  border-radius: $border-radius;
+  background-color: var(--global-base-color);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: $global-transition;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.hero-body {
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 0 1em 40px;
+  line-height: 1.7;
+}
+
+
+/* ==========================================================================
+   5. Glyph rail ("extreme" layout subpages - see _includes/author-rail.html)
+   ========================================================================== */
+
+.author-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 56px;
+  padding-top: 8px;
+
+  // Two-letter marks replace icons here. Delete this rule (and put icon
+  // markup back into author-rail.html) to use Font Awesome glyphs instead.
+  .fa, .fab, .far, .fal {
+    display: none;
+  }
+
+  &__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--global-border-color);
+    border-radius: 50%;
+    color: var(--global-text-color-light);
+    font-family: 'IBM Plex Mono', $monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: $global-transition;
+
+    &:hover {
+      background-color: var(--global-base-color);
+      border-color: var(--global-base-color);
+      color: #fff;
+    }
+  }
+
+  &__mark--avatar {
+    overflow: hidden;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--global-base-color);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+}
+
+
+/* ==========================================================================
+   6. Bio card ("extreme" layout subpages - see _includes/bio-card.html)
+   ========================================================================== */
+
+.bio-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin: 40px 0 0;
+  padding: 24px;
+  border: 1px solid var(--global-border-color);
+  border-radius: $border-radius;
+  background-color: var(--global-footer-bg-color);
+
+  &__avatar img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &__name {
+    margin-bottom: 6px;
+    color: var(--global-text-color);
+    font-weight: 600;
+  }
+
+  &__bio {
+    margin: 0 0 10px;
+    color: var(--global-text-color);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  &__link {
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
+
+
+/* ==========================================================================
+   7. "Moderate" layout - sticky collapsing rail (see assets/js/redesign.js)
+   ========================================================================== */
+
+body.redesign-moderate {
+  .sidebar {
+    width: 212px;
+    transition: width 0.2s ease-in-out;
+  }
+
+  &.is-scrolled .sidebar {
+    width: 72px;
+  }
+
+  .archive {
+    width: calc(100% - 252px); // rail + 40px gutter
+  }
+}
+
+
+/* ==========================================================================
+   8. Optional content-level upgrades - inert until added to page markup
+   ========================================================================== */
+
+.pub-row {
+  display: flex;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--global-border-color);
+
+  &__year {
+    flex-shrink: 0;
+    width: 3.5em;
+    color: var(--global-text-color-light);
+    font-family: 'IBM Plex Mono', $monospace;
+    font-size: 13px;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__venue {
+    color: var(--global-text-color-light);
+    font-size: 13px;
+  }
+}
+
+.publication-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background-color: var(--global-base-color);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}

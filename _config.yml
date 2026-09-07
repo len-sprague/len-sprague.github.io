@@ -8,7 +8,15 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-site_theme               : "default" # The available themes options are "default", "air", "sunrise", "mint", "dirt" and "contrast"
+
+# stock academicpages key, renamed so it keeps feeding _sass/theme/* untouched
+site_theme_legacy        : "default" # "default", "air", "sunrise", "mint", "dirt" or "contrast"
+
+# redesign (see _sass/_redesign.scss) - selectable, layered on top of the legacy skins above
+site_theme               : "oxblood" # slate | meridian | cedar | oxblood
+site_layout              : "extreme" # classic | moderate | extreme
+color_mode               : "auto"    # auto | light | dark
+
 title                    : "Len Sprague / Professional Portfolio"
 title_separator          : "-"
 name                     : &name "Leonard W. Sprague Jr."
@@ -31,6 +39,7 @@ author:
   employer         : "University of Tokyo; Keio University"
   uri              : # URL
   email            : "lenwsprague [at] gmail [dot] com"
+  cv               : "/cv/" # read by the redesign's author-rail.html and bio-card.html
 
   # Academic websites
   academia         : # URL

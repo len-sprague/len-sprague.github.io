@@ -5,13 +5,15 @@ layout: compress
 {% include base_path %}
 
 <!doctype html>
-<html lang="{{ site.locale | slice: 0,2 }}" class="no-js"{% if site.site_theme == "dark" %} data-theme="dark"{% endif %}>
+<html lang="{{ site.locale | slice: 0,2 }}" class="no-js"
+      data-scheme="{{ site.site_theme | default: 'oxblood' }}"
+      data-mode="{{ site.color_mode | default: 'auto' }}">
   <head>
     {% include head.html %}
     {% include head/custom.html %}
   </head>
 
-  <body>
+  <body class="redesign-{{ site.site_layout | default: 'classic' }}">
 
     {% include browser-upgrade.html %}
     {% include masthead.html %}
