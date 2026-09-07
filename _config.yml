@@ -37,6 +37,7 @@ author:
   # Biographic information
   avatar           : "profile.png"
   name             : "Leonard W. Sprague Jr."
+  short_name       : "Len Sprague" # shown instead of `name` when the "moderate" layout's sidebar collapses on scroll
   pronouns         : # example: "she/her"
   bio              : "Learning thrives on engagement. Engagement manifests from value recognition. Value is found and evolves through dialogue. In the face of an upswelling AI presence that threatens to bypass genuine engagement, we must reimagine how we connect by crafting dialogues that acknowledge both the possibilities and pitfalls of AI within our learning environments. Len is a chemist-turned-consultant working at the intersection of AI and higher education."
   location         : "Somewhere on Earth, usually"
