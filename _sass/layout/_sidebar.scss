@@ -7,6 +7,13 @@
    ========================================================================== */
 
 .sidebar {
+  // Below $large, the sidebar and .page both lose their column float (see
+  // _sass/layout/_page.scss) and become plain stacked blocks - since this
+  // markup renders before the article in the DOM, that stacking put the
+  // sidebar above the page content instead of beside it. Hiding it below
+  // the same breakpoint it would otherwise misbehave at avoids that jump.
+  display: none;
+
   -webkit-transform: translate3d(0, 0 , 0);
           transform: translate3d(0, 0 , 0);
 
@@ -25,6 +32,7 @@
   }
 
   @include breakpoint($large) {
+    display: block;
     @include span(2 of 12);
     opacity: 1;
     -webkit-transition: opacity 0.2s ease-in-out;

@@ -21,7 +21,7 @@ color_mode               : "auto"    # auto | light | dark
 # false = both pages render with the original stock academicpages archive-single.html markup
 upgraded_content         : true
 
-title                    : "Len Sprague / Professional Portfolio"
+title                    : "Len's Portfolio"
 title_separator          : "-"
 name                     : &name "Leonard W. Sprague Jr."
 description              : &description "Len Sprague's portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
