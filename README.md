@@ -4,7 +4,7 @@ This site started from [Academic Pages](https://academicpages.github.io/), a Jek
 
 ## Use of LLMs 
 
-Claude in particular has been used freely for modifying the original template and style options for this personal/professional website, extracting CV data into markdown, json, or bibtek files for relevant content pages (checked by me, Len, and thus any mistakes are my own), and bug fixing. Design decisions and content to be written (such as that for the home page, blog posts, more detailed descriptions of various items...) will always be my own responsibility, and void of any LLM assistance unless otherwise explicitly stated (such as for demonstration purposes and/or commentary on tool capabilities). 
+LLMs (Claude, for now) have been used freely for modifying the original template and style options for this personal/professional website, extracting CV data into markdown, json, or bibtek files for relevant content pages (checked by me, Len, and thus any mistakes are my own), and bug fixing. Design decisions and changes will always be preempted with non-LLM brainstorming and identification of goals/desires for the site, and written content (such as that for the home page, blog posts, more detailed descriptions of various items...) will always be my own responsibility, and void of any LLM assistance unless otherwise explicitly stated (such as for demonstration purposes and/or commentary on tool capabilities). However, documents such as this README file will often be drafted by or with LLM use, and only reviewed by me for overall usability (or to just keep track of the damn options being added/removed). In fact, likely the entire README document apart from this particular section has been written by Claude, with my nudges here and there.
 
 ## History
 
