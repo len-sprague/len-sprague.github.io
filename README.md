@@ -1,6 +1,10 @@
-# Len Sprague's Academic Site
+# Len Sprague's Professional Site
 
 This site started from [Academic Pages](https://academicpages.github.io/), a Jekyll/GitHub Pages template for academic portfolio sites, and has since diverged into a personal fork with its own content and design. The original template's setup instructions and generic documentation have been moved to [`README-academicpagescustom.md`](README-academicpagescustom.md) for reference; this README covers only what's actually relevant to running and maintaining *this* repo.
+
+## Use of LLMs 
+
+Claude in particular has been used freely for modifying the original template and style options for this personal/professional website, extracting CV data into markdown, json, or bibtek files for relevant content pages (checked by me, Len, and thus any mistakes are my own), and bug fixing. Design decisions and content to be written (such as that for the home page, blog posts, more detailed descriptions of various items...) will always be my own responsibility, and void of any LLM assistance unless otherwise explicitly stated (such as for demonstration purposes and/or commentary on tool capabilities). 
 
 ## History
 
