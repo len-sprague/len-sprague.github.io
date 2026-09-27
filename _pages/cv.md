@@ -19,7 +19,7 @@ redirect_from:
   </iframe>
 </div>
 
-Nothing else to see here yet! Check out the download above if you are looking for my CV.
+Some information from my CV is below (Publications, Talks, Teaching), linked to the relevant pages.
 
 Publications
 ======
