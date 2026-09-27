@@ -28,6 +28,9 @@ main:
     
   # - title: "CV"
   #   url: /cv-json/
-    
-  - title: "Guide"
-    url: /markdown/
+
+  # - title: "Guide"
+  #   url: /markdown/
+  # Hidden from the header nav on purpose (Sept 2026) - the page itself still exists
+  # at _pages/markdown.md / lensprague.com/markdown/ and is not deleted. See the
+  # "Hidden pages" section of README.md for why and how to bring it back.

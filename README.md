@@ -87,3 +87,13 @@ The two aren't quite the same include under the hood: `_includes/pub-row.html` d
 The portfolio page groups entries the same way publications do, via `portfolio_category` in `_config.yml` - currently `AI and Education`, `Data Visualization Tools`, `Essays`, and `Hobby`. Set `category:` in a `_portfolio/*.md` file's front matter to one of those keys (`ai_education`, `dataviz`, `essays`, `hobby`) to place it; a category with no matching entries simply doesn't get a heading, so it's fine to leave `Essays`/`Hobby` empty until there's something to put there.
 
 Unlike publications' `status:` tag, portfolio items can carry an `item_type:` field (e.g. `"Video"`, `"Worksheet"`) - rendered via `_includes/archive-single.html` as the same small pill style (`.item-tag`, sharing CSS with `.publication-tag`), shown to the left of the title. It's opt-in per item; most portfolio entries won't need one.
+
+## CV PDF (download + embedded viewer)
+
+`_pages/cv.md` has a download button and an embedded `<iframe>` PDF viewer at the top, both pointing at `/files/CV.pdf`. To make them work, add your CV as `files/CV.pdf` (the `files/` directory is already used for paper/slide PDFs and is served at `https://lensprague.com/files/...`). Until that file exists the download link and viewer will 404; nothing else on the page depends on it.
+
+## Hidden pages
+
+Removing a page's entry from `_data/navigation.yml` takes it out of the header nav without deleting the page - it's still built and reachable at its URL, just not linked from anywhere. Currently hidden this way:
+
+- **Guide** (`_pages/markdown.md`, served at `/markdown/`) - the stock Academic Pages "where things live / Markdown & Kramdown syntax" reference page. Hidden from the header nav (Sept 2026) since it's developer-facing documentation rather than site content, but kept in the repo (and out of `.gitignore`) so the syntax/feature reference is still there to read or link to directly. To restore it to the header, uncomment its two lines back in `main:` in `_data/navigation.yml`.
